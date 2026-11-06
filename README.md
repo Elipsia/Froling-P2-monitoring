@@ -131,6 +131,14 @@ python tools/demo_virtuel.py
 
 Le script démarre une S3100 virtuelle en local (TCP), s'y connecte avec le vrai client du module, affiche les 35 mesures décodées, puis injecte une erreur (trame M3) et montre sa traduction française. Vous pouvez aussi lancer le simulateur seul (`python -m froeling_s3100.simulator tests/fixtures/s3100_capture.jsonl --port 4196`) et pointer Home Assistant dessus pour valider toute l'installation avant de toucher à la chaudière.
 
+Pour déclencher une erreur de test pendant que le simulateur tourne (par exemple pour tester une automatisation de notification dans Home Assistant) :
+
+```bash
+python tools/inject_erreur.py --port 4196 --erreur 1   # 0 = STB déclenché, 1 = sonde chaudière défectueuse
+```
+
+L'erreur est diffusée à tous les clients connectés (dont Home Assistant), exactement comme un vrai défaut de la chaudière.
+
 **Sécurité** : par défaut, le module fonctionne en lecture seule (login « client »). La chaudière est conçue pour être interrogée par son port de visualisation ; la lecture ne modifie aucun réglage. La modification de paramètres, seule fonction à risque, est désactivée par défaut et clairement signalée comme expérimentale.
 
 ## Développement
