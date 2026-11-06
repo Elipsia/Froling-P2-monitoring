@@ -157,6 +157,8 @@ class SimulatedController:
                     elif frame.command == "Rb":
                         await send("Rb", ACK)
                         started.set()
+                    elif frame.command == "RX":
+                        self.inject_fault(frame.payload)
                     elif frame.command == "RI":
                         if self.reject_writes:
                             await send("RI", b"\x00")
