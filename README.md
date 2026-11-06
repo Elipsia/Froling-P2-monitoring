@@ -64,14 +64,19 @@ Créez une automatisation dans Home Assistant :
 alias: Erreur chaudière Fröling
 triggers:
   - trigger: event
-    event_type: froeling_s3100_fault
+    event_type: homeassistant_event
     event_data:
       event_type: fault
 actions:
-  - action: notify.mobile_app_mon_telephone
+  - action: persistent_notification.create
     data:
       title: "⚠️ Défaut chaudière Fröling"
       message: "{{ trigger.event.data.text }}"
+  # En production, ajoutez aussi une notification mobile : 
+  # - action: notify.mobile_app_mon_telephone
+  #   data:
+  #     title: "⚠️ Défaut chaudière Fröling"
+  #     message: "{{ trigger.event.data.text }}"
 ```
 
 Chaque message d'erreur envoyé par la chaudière (en allemand) est automatiquement traduit en français via la table `custom_components/froeling_s3100/fault_texts_fr.py`. Si un message n'est pas encore répertorié, il s'affiche sous la forme « Texte inconnu (... » : signalez-le dans les issues et complétez la table — toute contribution est bienvenue.
