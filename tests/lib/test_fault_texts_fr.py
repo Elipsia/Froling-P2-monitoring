@@ -46,3 +46,14 @@ def test_unknown_fault_text_is_flagged_but_kept() -> None:
 def test_none_and_empty_are_passed_through() -> None:
     assert translate_fault_text(None) is None
     assert translate_fault_text("") == ""
+
+
+def test_abbreviated_texts_from_real_captures() -> None:
+    assert (
+        translate_fault_text("Kesseltemp.\nfehlerhaft")
+        == "Sonde de température chaudière défectueuse"
+    )
+    assert (
+        translate_fault_text("Sicherheitstemp.\n(STB) ausgelöst")
+        == "Limiteur de température de sécurité déclenché (STB)"
+    )

@@ -17,6 +17,9 @@ _NORMALIZE_PATTERN = re.compile(r"[^a-zäöüß0-9]")
 
 _FAULT_TEXTS_FR: dict[str, str] = {
     "kesseltemperatur zu gering": "Température chaudière trop basse",
+    "kesseltemp. fehlerhaft": "Sonde de température chaudière défectueuse",
+    "kesseltemp fehlerhaft": "Sonde de température chaudière défectueuse",
+    "sicherheitstemp. (stb) ausgelöst": "Limiteur de température de sécurité déclenché (STB)",
     "kesseltemperatur zu hoch": "Température chaudière trop élevée",
     "kesselfühler defekt": "Sonde de chaudière défectueuse",
     "kesselfühler defekt": "Sonde de chaudière défectueuse",

@@ -120,6 +120,19 @@ Les identifiants exacts (`entity_id`) dépendent de votre installation ; vérifi
 
 Dans les options de l'intégration, activez « Autoriser la modification des paramètres ». Les paramètres du menu client (consignes de température, horaires, ...) deviennent modifiables. **Vérifiez toujours l'affichage de la chaudière après chaque modification** : l'écriture n'a pas été validée sur toutes les versions de régulateur. Cette option est désactivée par défaut.
 
+## Tester sans matériel (100 % virtuel)
+
+Aucun besoin de chaudière ni de matériel pour valider le fonctionnement. Le projet embarque un **simulateur complet de la Lambdatronic S3100** qui rejoue une capture réelle (login, catalogue, mesures chaque seconde, erreurs) et se comporte exactement comme le régulateur sur le réseau :
+
+```bash
+pip install -e .
+python tools/demo_virtuel.py
+```
+
+Le script démarre une S3100 virtuelle en local (TCP), s'y connecte avec le vrai client du module, affiche les 35 mesures décodées, puis injecte une erreur (trame M3) et montre sa traduction française. Vous pouvez aussi lancer le simulateur seul (`python -m froeling_s3100.simulator tests/fixtures/s3100_capture.jsonl --port 4196`) et pointer Home Assistant dessus pour valider toute l'installation avant de toucher à la chaudière.
+
+**Sécurité** : par défaut, le module fonctionne en lecture seule (login « client »). La chaudière est conçue pour être interrogée par son port de visualisation ; la lecture ne modifie aucun réglage. La modification de paramètres, seule fonction à risque, est désactivée par défaut et clairement signalée comme expérimentale.
+
 ## Développement
 
 ```bash
