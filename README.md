@@ -115,6 +115,60 @@ Le déclencheur `event.received` (dans l'éditeur visuel : « Événement reçu 
 
 Chaque message d'erreur envoyé par la chaudière (en allemand) est automatiquement traduit en français via la table `custom_components/froeling_s3100/fault_texts_fr.py`. Si un message n'est pas encore répertorié, il s'affiche sous la forme « Texte inconnu (... » : signalez-le dans les issues et complétez la table — toute contribution est bienvenue.
 
+## Vue graphique SVG de la chaudière
+
+Le dossier `www/` contient un schéma SVG de la P2 (`www/froeling-p2.svg`) : chaudière, ballon tampon, ballon ECS, silo à pellets et circuits de chauffage. Il s'affiche dans Home Assistant avec la carte « Éléments d'image », les valeurs des sondes étant superposées au schéma.
+
+Installation :
+
+1. Copiez `www/froeling-p2.svg` dans le dossier `/config/www/` de Home Assistant (via File editor ou Samba). Le fichier devient accessible à l'adresse `/local/froeling-p2.svg`.
+2. Dans un tableau de bord : **Ajouter une carte → Éléments d'image** (picture-elements), puis en mode YAML :
+
+```yaml
+type: picture-elements
+image: /local/froeling-p2.svg
+elements:
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_exterieure
+    style:
+      top: 15%
+      left: 8%
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_des_fumees
+    style:
+      top: 22%
+      left: 27%
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_chaudiere
+    style:
+      top: 47%
+      left: 21%
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_ballon_haut
+    style:
+      top: 43%
+      left: 51%
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_ballon_bas
+    style:
+      top: 78%
+      left: 51%
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_eau_chaude_sanitaire
+    style:
+      top: 57%
+      left: 71%
+  - type: state-label
+    entity: sensor.froling_s3100_niveau_de_pellets
+    style:
+      top: 78%
+      left: 89%
+```
+
+Les identifiants d'entités sont à adapter à votre installation (Outils de développement → États). Les positions (`top`/`left` en pourcentage) sont calées sur le schéma fourni — ajustez-les si vous dessinez votre propre SVG. Pour un rendu plus soigné, la carte peut être complétée par l'extension [card-mod](https://github.com/thomasloven/lovelace-card-mod) (arrière-plan des étiquettes, arrondi) ou par des `state-icon` (icônes cliquables).
+
+Le SVG est modifiable avec [Inkscape](https://inkscape.org/) (gratuit) : ajoutez vos propres zones (sondes KTY, pompes, vis d'alimentation...) en respectant les positions des étiquettes.
+
 ## Tableau de bord mobile
 
 Exemple de dashboard (Paramètres → Tableaux de bord → Ajouter un tableau de bord) :
