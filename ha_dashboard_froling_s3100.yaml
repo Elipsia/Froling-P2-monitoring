@@ -1,0 +1,221 @@
+# Tableau de bord Fröling P2 / Lambdatronic S3100 avec les visuels floorplan.
+#
+# Prérequis :
+#   1. Installer la carte « Floorplan Card » (custom:floorplan-card) via HACS
+#   2. Copier le dossier www/froeling/ dans /config/www/froeling/
+#   3. Créer un tableau de bord en mode YAML et coller le contenu de ce fichier
+#
+# Identifiants d'entités à adapter à votre installation
+# (Outils de développement → États). Les éléments relatifs à des sondes
+# absentes de votre installation peuvent être retirés.
+
+views:
+  - title: Chaudière
+    path: chaudiere
+    badges: []
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:floorplan-card
+            full_height: false
+            config:
+              image: /local/froeling/froeling_kessel.svg
+              cache: false
+              stylesheet: /local/froeling/home.css
+              defaults:
+                hover_action: hover-info
+                tap_action: more-info
+              rules:
+                - entities:
+                    - sensor.froling_s3100_temperature_chaudiere
+                    - sensor.froling_s3100_temperature_des_fumees
+                  tap_action: false
+                  state_action:
+                    action: call-service
+                    service: floorplan.text_set
+                    service_data: ${entity.state + "°C"}
+                - entities:
+                    - sensor.froling_s3100_oxygene_residuel
+                    - sensor.froling_s3100_ventilateur_de_tirage
+                    - sensor.froling_s3100_niveau_de_pellets
+                  tap_action: false
+                  state_action:
+                    action: call-service
+                    service: floorplan.text_set
+                    service_data: ${entity.state + "%"}
+                - entities:
+                    - sensor.froling_s3100_mode_de_fonctionnement
+                  tap_action: false
+                  state_action:
+                    action: call-service
+                    service: floorplan.class_set
+                    service_data:
+                      class: |-
+                        ${
+                          (entity.state == "Heizen") ? "fill-red" :
+                          (entity.state == "Anheizen") ? "fill-orange" :
+                          (entity.state == "Zünden") ? "fill-orange" :
+                          "fill-grey"
+                        }
+      - type: entities
+        title: État
+        entities:
+          - entity: sensor.froling_s3100_mode_de_fonctionnement
+            name: Mode de fonctionnement
+          - entity: sensor.froling_s3100_temperature_chaudiere
+            name: Température chaudière
+          - entity: sensor.froling_s3100_temperature_des_fumees
+            name: Température des fumées
+          - entity: sensor.froling_s3100_oxygene_residuel
+            name: Oxygène résiduel
+          - entity: sensor.froling_s3100_ventilateur_de_tirage
+            name: Ventilateur de tirage
+          - entity: sensor.froling_s3100_niveau_de_pellets
+            name: Niveau de pellets
+      - type: entities
+        title: Compteurs
+        entities:
+          - entity: sensor.froling_s3100_heures_de_fonctionnement
+            name: Heures de fonctionnement
+          - entity: sensor.froling_s3100_demarrages_du_bruleur
+            name: Démarrages du brûleur
+          - entity: sensor.froling_s3100_derniere_erreur
+            name: Dernière erreur
+
+  - title: Ballon ECS
+    path: ecs
+    badges: []
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:floorplan-card
+            full_height: false
+            config:
+              image: /local/froeling/froeling_boiler01.svg
+              cache: false
+              stylesheet: /local/froeling/home.css
+              defaults:
+                hover_action: hover-info
+                tap_action: more-info
+              rules:
+                - entities:
+                    - sensor.froling_s3100_temperature_eau_chaude_sanitaire
+                  tap_action: false
+                  state_action:
+                    action: call-service
+                    service: floorplan.text_set
+                    service_data: ${entity.state + "°C"}
+      - type: entities
+        title: Eau chaude sanitaire
+        entities:
+          - entity: sensor.froling_s3100_temperature_eau_chaude_sanitaire
+            name: Température ECS
+
+  - title: Circuit 1
+    path: circuit1
+    badges: []
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:floorplan-card
+            full_height: false
+            config:
+              image: /local/froeling/froeling_heizkreis01.svg
+              cache: false
+              stylesheet: /local/froeling/home.css
+              defaults:
+                hover_action: hover-info
+                tap_action: more-info
+              rules:
+                - entities:
+                    - sensor.froling_s3100_temperature_exterieure
+                    - sensor.froling_s3100_temperature_depart_circuit_1
+                  tap_action: false
+                  state_action:
+                    action: call-service
+                    service: floorplan.text_set
+                    service_data: ${entity.state + "°C"}
+                - entities:
+                    - binary_sensor.froling_s3100_demande_circuit_de_chauffage_1
+                  tap_action: false
+                  state_action:
+                    action: call-service
+                    service: floorplan.class_set
+                    service_data:
+                      class: '${(entity.state == "on") ? "fill-green" : "fill-grey"}'
+      - type: entities
+        title: Circuit de chauffage 1
+        entities:
+          - entity: sensor.froling_s3100_temperature_depart_circuit_1
+            name: Température départ
+          - entity: sensor.froling_s3100_temperature_exterieure
+            name: Température extérieure
+
+  - title: Circuit 2
+    path: circuit2
+    badges: []
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:floorplan-card
+            full_height: false
+            config:
+              image: /local/froeling/froeling_heizkreis02.svg
+              cache: false
+              stylesheet: /local/froeling/home.css
+              defaults:
+                hover_action: hover-info
+                tap_action: more-info
+              rules:
+                - entities:
+                    - sensor.froling_s3100_temperature_exterieure
+                    - sensor.froling_s3100_temperature_depart_circuit_2
+                  tap_action: false
+                  state_action:
+                    action: call-service
+                    service: floorplan.text_set
+                    service_data: ${entity.state + "°C"}
+                - entities:
+                    - binary_sensor.froling_s3100_demande_circuit_de_chauffage_2
+                  tap_action: false
+                  state_action:
+                    action: call-service
+                    service: floorplan.class_set
+                    service_data:
+                      class: '${(entity.state == "on") ? "fill-green" : "fill-grey"}'
+      - type: entities
+        title: Circuit de chauffage 2
+        entities:
+          - entity: sensor.froling_s3100_temperature_depart_circuit_2
+            name: Température départ
+          - entity: sensor.froling_s3100_temperature_exterieure
+            name: Température extérieure
+
+  - title: Extraction pellets
+    path: extraction
+    badges: []
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:floorplan-card
+            full_height: false
+            config:
+              image: /local/froeling/froeling_austragung.svg
+              cache: false
+              stylesheet: /local/froeling/home.css
+              defaults:
+                hover_action: hover-info
+                tap_action: more-info
+              rules:
+                - entities:
+                    - sensor.froling_s3100_niveau_de_pellets
+                  tap_action: false
+                  state_action:
+                    action: call-service
+                    service: floorplan.text_set
+                    service_data: ${entity.state + "%"}
+      - type: entities
+        title: Granulés
+        entities:
+          - entity: sensor.froling_s3100_niveau_de_pellets
+            name: Niveau de pellets

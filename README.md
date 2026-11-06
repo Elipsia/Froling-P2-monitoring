@@ -115,6 +115,75 @@ Le déclencheur `event.received` (dans l'éditeur visuel : « Événement reçu 
 
 Chaque message d'erreur envoyé par la chaudière (en allemand) est automatiquement traduit en français via la table `custom_components/froeling_s3100/fault_texts_fr.py`. Si un message n'est pas encore répertorié, il s'affiche sous la forme « Texte inconnu (... » : signalez-le dans les issues et complétez la table — toute contribution est bienvenue.
 
+## Vue graphique de la chaudière
+
+Deux approches sont fournies :
+
+### 1. Visuels détaillés par composant (recommandé)
+
+Le dossier `www/froeling/` contient des schémas SVG professionnels de la chaudière, du ballon ECS, des circuits de chauffage et de l'extraction de granulés — adaptés avec l'accord de leur auteur (licence MIT) depuis [GyroGearl00se/ESPHome-Froeling-Lambdatronic_3200](https://github.com/GyroGearl00se/ESPHome-Froeling-Lambdatronic_3200), avec les identifiants d'entités remappés vers cette intégration. Les valeurs s'affichent **dans** le dessin (températures, %, niveau de pellets) et les composants **changent de couleur** selon leur état (chauffage actif en rouge/orange, pompes en vert) grâce à la carte « Floorplan ».
+
+Installation :
+
+1. Installez la carte **Floorplan Card** via HACS (recherchez « Floorplan »).
+2. Copiez le dossier `www/froeling/` dans `/config/www/froeling/` de Home Assistant.
+3. Créez un tableau de bord en mode YAML et collez le contenu de [`ha_dashboard_froling_s3100.yaml`](ha_dashboard_froling_s3100.yaml) : cinq vues (Chaudière, Ballon ECS, Circuit 1, Circuit 2, Extraction pellets) avec les valeurs injectées dans les schémas et les listes d'entités en français.
+4. Adaptez les identifiants d'entités à votre installation (Outils de développement → États) ; retirez les lignes des sondes absentes de votre configuration (par ex. le circuit 2 s'il n'existe pas).
+
+Les schémas s'éditent avec [Inkscape](https://inkscape.org/) : les éléments Texte portent l'identifiant de l'entité qu'ils affichent (ex. `sensor.froling_s3100_temperature_chaudiere`).
+
+### 2. Schéma d'ensemble simple (alternative)
+
+Le fichier `www/froeling-p2.svg` est un schéma d'ensemble de la P2 (chaudière reliée directement au ballon ECS puis aux circuits, sans ballon tampon). Il s'affiche avec la carte native « Éléments d'image » (picture-elements), les valeurs étant superposées :
+
+1. Copiez `www/froeling-p2.svg` dans `/config/www/` de Home Assistant. Le fichier devient accessible à l'adresse `/local/froeling-p2.svg`.
+2. Dans un tableau de bord : **Ajouter une carte → Éléments d'image** (picture-elements), puis en mode YAML :
+
+```yaml
+type: picture-elements
+image: /local/froeling-p2.svg
+elements:
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_exterieure
+    style:
+      top: 15%
+      left: 8%
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_des_fumees
+    style:
+      top: 22%
+      left: 27%
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_chaudiere
+    style:
+      top: 47%
+      left: 21%
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_eau_chaude_sanitaire
+    style:
+      top: 48%
+      left: 56%
+  - type: state-label
+    entity: sensor.froling_s3100_niveau_de_pellets
+    style:
+      top: 50%
+      left: 89%
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_depart_circuit_1
+    style:
+      top: 43%
+      left: 81%
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_depart_circuit_2
+    style:
+      top: 65%
+      left: 81%
+```
+
+Les identifiants d'entités sont à adapter à votre installation (Outils de développement → États). Les positions (`top`/`left` en pourcentage) sont calées sur le schéma fourni — ajustez-les si vous dessinez votre propre SVG. Pour un rendu plus soigné, la carte peut être complétée par l'extension [card-mod](https://github.com/thomasloven/lovelace-card-mod) (arrière-plan des étiquettes, arrondi) ou par des `state-icon` (icônes cliquables).
+
+Le SVG est modifiable avec [Inkscape](https://inkscape.org/) (gratuit) : ajoutez vos propres zones (sondes KTY, pompes, vis d'alimentation...) en respectant les positions des étiquettes.
+
 ## Tableau de bord mobile
 
 Exemple de dashboard (Paramètres → Tableaux de bord → Ajouter un tableau de bord) :
