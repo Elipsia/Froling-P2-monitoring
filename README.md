@@ -74,12 +74,12 @@ actions:
   - action: persistent_notification.create
     data:
       title: "⚠️ Défaut chaudière Fröling"
-      message: "{{ trigger.event.data.text }}"
+      message: "{{ trigger.data.text }}"
   # En production, ajoutez aussi une notification mobile : 
   # - action: notify.mobile_app_mon_telephone
   #   data:
   #     title: "⚠️ Défaut chaudière Fröling"
-  #     message: "{{ trigger.event.data.text }}"
+  #     message: "{{ trigger.data.text }}"
 ```
 
 Le déclencheur `event.received` (dans l'éditeur visuel : « Événement reçu ») est le déclencheur officiel des entités d'événement : il se déclenche à chaque message d'erreur, même si l'entité ne change pas d'état. Adaptez l'identifiant `event.froling_s3100_message_d_erreur` si votre entité a un autre identifiant (Paramètres → Appareils et services → Fröling → « Message d'erreur »).
