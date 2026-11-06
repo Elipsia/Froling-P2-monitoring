@@ -52,9 +52,11 @@ views:
                     service_data:
                       class: |-
                         ${
-                          (entity.state == "Heizen") ? "fill-red" :
-                          (entity.state == "Anheizen") ? "fill-orange" :
-                          (entity.state == "Zünden") ? "fill-orange" :
+                          (entity.state == "En chauffe") ? "fill-red" :
+                          (entity.state == "Maintien du feu") ? "fill-red" :
+                          (entity.state == "Montée en température") ? "fill-orange" :
+                          (entity.state == "Allumage") ? "fill-orange" :
+                          (entity.state == "Préchauffage") ? "fill-orange" :
                           "fill-grey"
                         }
       - type: entities
