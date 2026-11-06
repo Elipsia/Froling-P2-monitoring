@@ -115,6 +115,8 @@ Le déclencheur `event.received` (dans l'éditeur visuel : « Événement reçu 
 
 Chaque message d'erreur envoyé par la chaudière (en allemand) est automatiquement traduit en français via la table `custom_components/froeling_s3100/fault_texts_fr.py`. Si un message n'est pas encore répertorié, il s'affiche sous la forme « Texte inconnu (... » : signalez-le dans les issues et complétez la table — toute contribution est bienvenue.
 
+Les **valeurs textuelles** (modes de fonctionnement « Winterbetrieb », états « Heizen », « Betriebsbereit »...) sont également traduites en français à l'affichage via `custom_components/froeling_s3100/value_texts_fr.py` (« Mode hiver », « En chauffe », « Prêt »...). Les valeurs brutes restent en allemand en interne — les capteurs dérivés (Feu actif, Défaut) continuent de fonctionner sur les textes d'origine. Une valeur non répertoriée s'affiche telle quelle : complétez la table de la même façon.
+
 ## Vue graphique de la chaudière
 
 Deux approches sont fournies :

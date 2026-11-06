@@ -24,6 +24,7 @@ from homeassistant.util import dt as dt_util
 
 from .coordinator import FroelingConfigEntry, FroelingCoordinator
 from .fault_texts_fr import translate_fault_text
+from .value_texts_fr import translate_value_text
 from .entity import (
     FroelingEntity,
     FroelingParameterEntity,
@@ -112,7 +113,9 @@ class MeasurementSensor(FroelingEntity, SensorEntity):
 
         if measurement.texts is not None:
             self._attr_device_class = SensorDeviceClass.ENUM
-            self._attr_options = list(dict.fromkeys(measurement.texts.values()))
+            self._attr_options = [
+                translate_value_text(text) for text in dict.fromkeys(measurement.texts.values())
+            ]
             return
 
         unit = UNITS.get(measurement.unit or "")
@@ -128,7 +131,12 @@ class MeasurementSensor(FroelingEntity, SensorEntity):
         """Latest value."""
         value = self.coordinator.data.values.get(self._key)
         if self._attr_device_class is SensorDeviceClass.ENUM and value not in (self._attr_options or []):
+            translated = translate_value_text(value) if isinstance(value, str) else None
+            if translated in (self._attr_options or []):
+                return translated
             return None
+        if isinstance(value, str):
+            return translate_value_text(value)
         return value
 
 
