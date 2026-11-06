@@ -117,7 +117,7 @@ Chaque message d'erreur envoyé par la chaudière (en allemand) est automatiquem
 
 ## Vue graphique SVG de la chaudière
 
-Le dossier `www/` contient un schéma SVG de la P2 (`www/froeling-p2.svg`) : chaudière, ballon tampon, ballon ECS, silo à pellets et circuits de chauffage. Il s'affiche dans Home Assistant avec la carte « Éléments d'image », les valeurs des sondes étant superposées au schéma.
+Le dossier `www/` contient un schéma SVG de la P2 (`www/froeling-p2.svg`) : chaudière reliée directement au ballon ECS puis aux circuits de chauffage (installation sans ballon tampon), silo à pellets avec vis d'alimentation, pompes et température extérieure. Il s'affiche dans Home Assistant avec la carte « Éléments d'image », les valeurs des sondes étant superposées au schéma. Si votre installation comporte un ballon tampon, le schéma se modifie facilement avec [Inkscape](https://inkscape.org/).
 
 Installation :
 
@@ -144,25 +144,25 @@ elements:
       top: 47%
       left: 21%
   - type: state-label
-    entity: sensor.froling_s3100_temperature_ballon_haut
-    style:
-      top: 43%
-      left: 51%
-  - type: state-label
-    entity: sensor.froling_s3100_temperature_ballon_bas
-    style:
-      top: 78%
-      left: 51%
-  - type: state-label
     entity: sensor.froling_s3100_temperature_eau_chaude_sanitaire
     style:
-      top: 57%
-      left: 71%
+      top: 48%
+      left: 56%
   - type: state-label
     entity: sensor.froling_s3100_niveau_de_pellets
     style:
-      top: 78%
+      top: 50%
       left: 89%
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_depart_circuit_1
+    style:
+      top: 43%
+      left: 81%
+  - type: state-label
+    entity: sensor.froling_s3100_temperature_depart_circuit_2
+    style:
+      top: 65%
+      left: 81%
 ```
 
 Les identifiants d'entités sont à adapter à votre installation (Outils de développement → États). Les positions (`top`/`left` en pourcentage) sont calées sur le schéma fourni — ajustez-les si vous dessinez votre propre SVG. Pour un rendu plus soigné, la carte peut être complétée par l'extension [card-mod](https://github.com/thomasloven/lovelace-card-mod) (arrière-plan des étiquettes, arrondi) ou par des `state-icon` (icônes cliquables).
