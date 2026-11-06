@@ -115,13 +115,28 @@ Le déclencheur `event.received` (dans l'éditeur visuel : « Événement reçu 
 
 Chaque message d'erreur envoyé par la chaudière (en allemand) est automatiquement traduit en français via la table `custom_components/froeling_s3100/fault_texts_fr.py`. Si un message n'est pas encore répertorié, il s'affiche sous la forme « Texte inconnu (... » : signalez-le dans les issues et complétez la table — toute contribution est bienvenue.
 
-## Vue graphique SVG de la chaudière
+## Vue graphique de la chaudière
 
-Le dossier `www/` contient un schéma SVG de la P2 (`www/froeling-p2.svg`) : chaudière reliée directement au ballon ECS puis aux circuits de chauffage (installation sans ballon tampon), silo à pellets avec vis d'alimentation, pompes et température extérieure. Il s'affiche dans Home Assistant avec la carte « Éléments d'image », les valeurs des sondes étant superposées au schéma. Si votre installation comporte un ballon tampon, le schéma se modifie facilement avec [Inkscape](https://inkscape.org/).
+Deux approches sont fournies :
+
+### 1. Visuels détaillés par composant (recommandé)
+
+Le dossier `www/froeling/` contient des schémas SVG professionnels de la chaudière, du ballon ECS, des circuits de chauffage et de l'extraction de granulés — adaptés avec l'accord de leur auteur (licence MIT) depuis [GyroGearl00se/ESPHome-Froeling-Lambdatronic_3200](https://github.com/GyroGearl00se/ESPHome-Froeling-Lambdatronic_3200), avec les identifiants d'entités remappés vers cette intégration. Les valeurs s'affichent **dans** le dessin (températures, %, niveau de pellets) et les composants **changent de couleur** selon leur état (chauffage actif en rouge/orange, pompes en vert) grâce à la carte « Floorplan ».
 
 Installation :
 
-1. Copiez `www/froeling-p2.svg` dans le dossier `/config/www/` de Home Assistant (via File editor ou Samba). Le fichier devient accessible à l'adresse `/local/froeling-p2.svg`.
+1. Installez la carte **Floorplan Card** via HACS (recherchez « Floorplan »).
+2. Copiez le dossier `www/froeling/` dans `/config/www/froeling/` de Home Assistant.
+3. Créez un tableau de bord en mode YAML et collez le contenu de [`ha_dashboard_froling_s3100.yaml`](ha_dashboard_froling_s3100.yaml) : cinq vues (Chaudière, Ballon ECS, Circuit 1, Circuit 2, Extraction pellets) avec les valeurs injectées dans les schémas et les listes d'entités en français.
+4. Adaptez les identifiants d'entités à votre installation (Outils de développement → États) ; retirez les lignes des sondes absentes de votre configuration (par ex. le circuit 2 s'il n'existe pas).
+
+Les schémas s'éditent avec [Inkscape](https://inkscape.org/) : les éléments Texte portent l'identifiant de l'entité qu'ils affichent (ex. `sensor.froling_s3100_temperature_chaudiere`).
+
+### 2. Schéma d'ensemble simple (alternative)
+
+Le fichier `www/froeling-p2.svg` est un schéma d'ensemble de la P2 (chaudière reliée directement au ballon ECS puis aux circuits, sans ballon tampon). Il s'affiche avec la carte native « Éléments d'image » (picture-elements), les valeurs étant superposées :
+
+1. Copiez `www/froeling-p2.svg` dans `/config/www/` de Home Assistant. Le fichier devient accessible à l'adresse `/local/froeling-p2.svg`.
 2. Dans un tableau de bord : **Ajouter une carte → Éléments d'image** (picture-elements), puis en mode YAML :
 
 ```yaml
