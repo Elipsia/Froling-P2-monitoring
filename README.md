@@ -19,9 +19,9 @@ Il s'agit d'une adaptation francisée de l'excellente intégration [ha-froeling-
 
 | Élément | Exemple | Prix approx. |
 |---|---|---|
-| Raspberry Pi (3/4/5) + carte microSD + alimentation | — | 50–90 € |
-| Convertisseur RS232 ↔ Ethernet (serveur TCP transparent) | Waveshare RS232 to ETH (B) | 20–30 € |
-| Câble RS232 DB9 mâle-mâle croisé (« null modem ») | câble null modem | 8–15 € |
+| Raspberry Pi (3/4/5, 4 Go de RAM recommandés) + carte microSD + alimentation | — | 50–90 € |
+| Convertisseur RS232 ↔ Ethernet/Wi-Fi (serveur TCP transparent) | Waveshare RS232 to ETH (B), ou USR-W630 pour le Wi-Fi | 20–35 € |
+| Câble RS232 DB9 mâle-mâle croisé (« null modem ») — voir « Câblage » selon votre connecteur | câble null modem | 8–15 € |
 
 Le convertisseur Waveshare est recommandé car c'est la configuration testée par l'intégration. Il se configure (via son utilitaire) en **serveur TCP, port 4196, 9600 bauds, 8N1**.
 
@@ -29,11 +29,37 @@ Alternative possible : un simple adaptateur USB↔RS232 branché sur le Raspberr
 
 ## Câblage
 
-1. Localisez le connecteur de service RS232 (DB9) de la Lambdatronic S3100 (connecteur « Bedien-Erweiterung », à l'arrière de la régulation).
-2. Reliez-le au convertisseur avec le câble null modem (TXD/RXD croisés, GND commun).
-3. Configurez le convertisseur : serveur TCP, port 4196, 9600 bauds, 8 bits, pas de parité, 1 bit de stop.
-4. Branchez le convertisseur sur votre réseau local (DHCP ou IP fixe).
-5. **Rester en lecture seule ne modifie rien au fonctionnement de la chaudière** ; le port est conçu pour la visualisation.
+⚠️ **Coupez l'alimentation de la chaudière au disjoncteur avant tout raccordement.** Rester en lecture seule ne modifie rien au fonctionnement de la chaudière : le port de service est conçu pour la visualisation.
+
+Le port « Bedien-Erweiterung » de la Lambdatronic 3100 existe en **deux variantes matérielles** selon la révision. Identifiez la vôtre (coupez le courant et ouvrez le caisson de régulation au préalable) :
+
+### Variante A — prise DB9 femelle 9 trous
+
+1. Localisez la prise DB9 femelle (9 trous, format port série de PC) sur la carte de la régulation.
+2. Reliez-la au convertisseur avec le câble null modem (TXD/RXD croisés, GND commun).
+
+### Variante B — connecteur 4 broches (+US / TXD / RXD / GND)
+
+Une prise plastique à 4 trous (pas 2,54 mm type Molex, étiquettes imprimées sur la carte). Le câblage se fait avec des fiches Dupont femelles et un connecteur DB9 mâle :
+
+| Broche P3100 | → | Broche DB9 mâle | → | câble null modem → convertisseur |
+|---|---|---|---|---|
+| TXD (la chaudière parle) | → | broche 3 | → | le câble croise vers RX |
+| RXD (la chaudière écoute) | → | broche 2 | → | le câble croise vers TX |
+| GND | → | broche 5 | → | masse |
+| +US | → | **non branchée** — isolez la fiche (chatterton/gaine thermo) | |
+
+Matériel pour cette variante : connecteur DB9 mâle à souder ou à bornier (~5 €) + 4 câbles Dupont femelle-bout dénudé (~5 €).
+
+**Diagnostic** : si l'intégration affiche « La S3100 ne répond pas » alors que le convertisseur est joignable, intervertissez les fils TXD et RXD — un câblage inversé ne casse rien, la chaudière reste simplement muette.
+
+### Dans tous les cas
+
+1. Configurez le convertisseur : serveur TCP, port 4196, 9600 bauds, 8 bits, pas de parité, 1 bit de stop.
+2. Branchez le convertisseur sur votre réseau local (Ethernet, Wi-Fi ou CPL — réservez-lui une IP fixe).
+3. Remettez la chaudière sous tension : la LED d'état doit rester verte.
+
+**Remarque** : la Fröling P2 de 2006 est équipée de la **Lambdatronic P 3100** (version pellets de la plateforme Lambdatronic 3100 — le « P » remplace le « S » selon le type de chaudière). Carte, firmware, port série et protocole sont identiques : cette intégration fonctionne telle quelle.
 
 ## Installation
 
