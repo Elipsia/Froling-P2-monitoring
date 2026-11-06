@@ -1,0 +1,283 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connexion Fröling Lambdatronic S3100",
+        "description": "La S3100 est connectée via un convertisseur RS232-vers-Ethernet transparent (ex. Waveshare) configuré en serveur TCP, 9600 bauds, 8N1.",
+        "data": {
+          "host": "Hôte",
+          "port": "Port"
+        },
+        "data_description": {
+          "host": "Nom d'hôte ou adresse IP du convertisseur RS232-vers-Ethernet.",
+          "port": "Port TCP du convertisseur (valeur par défaut Waveshare : 4196)."
+        }
+      },
+      "reconfigure": {
+        "title": "Modifier la connexion",
+        "data": {
+          "host": "Hôte",
+          "port": "Port"
+        },
+        "data_description": {
+          "host": "Nom d'hôte ou adresse IP du convertisseur RS232-vers-Ethernet.",
+          "port": "Port TCP du convertisseur (valeur par défaut Waveshare : 4196)."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Impossible d'atteindre le convertisseur. Vérifiez l'adresse IP, le port et que le convertisseur fonctionne en serveur TCP.",
+      "no_response": "Le convertisseur est joignable mais la S3100 ne répond pas. Vérifiez le câblage (TXD/RXD croisés, GND), 9600 bauds 8N1 et que la chaudière est allumée.",
+      "unknown": "Erreur inattendue"
+    },
+    "abort": {
+      "already_configured": "L'appareil est déjà configuré",
+      "reconfigure_successful": "La reconfiguration a réussi"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options",
+        "data": {
+          "update_interval": "Intervalle d'actualisation",
+          "enable_writes": "Autoriser la modification des paramètres (expérimental)"
+        },
+        "data_description": {
+          "update_interval": "Le régulateur envoie toutes les valeurs chaque seconde. Les états Home Assistant sont actualisés au maximum à cette fréquence afin de limiter la taille de la base de données.",
+          "enable_writes": "Expose les paramètres du menu client (températures de consigne, horaires de chauffage, ...) comme entités modifiables. Les valeurs sont vérifiées par rapport aux limites annoncées par le régulateur. L'écriture n'a pas été vérifiée sur toutes les versions de régulateur ; contrôlez l'affichage de la chaudière après chaque modification."
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "connected": {
+        "name": "Connexion"
+      },
+      "fault": {
+        "name": "Défaut"
+      },
+      "fire_active": {
+        "name": "Feu actif"
+      },
+      "heating_up": {
+        "name": "Montée en température"
+      },
+      "circuit_demand": {
+        "name": "Demande circuit de chauffage {number}"
+      },
+      "buffer_pump_running": {
+        "name": "Pompe ballon en marche"
+      },
+      "induced_draft_fan_running": {
+        "name": "Ventilateur de tirage en marche"
+      }
+    },
+    "event": {
+      "fault_event": {
+        "name": "Message d'erreur",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "fault": "Défaut"
+            }
+          }
+        }
+      }
+    },
+    "sensor": {
+      "status": {
+        "name": "État"
+      },
+      "operating_mode": {
+        "name": "Mode de fonctionnement"
+      },
+      "grate": {
+        "name": "Grille"
+      },
+      "boiler_temperature": {
+        "name": "Température chaudière"
+      },
+      "boiler_temperature_target": {
+        "name": "Consigne température chaudière"
+      },
+      "flue_gas_temperature": {
+        "name": "Température des fumées"
+      },
+      "flue_gas_temperature_target": {
+        "name": "Consigne température des fumées"
+      },
+      "boiler_control_value": {
+        "name": "Puissance chaudière"
+      },
+      "induced_draft_fan": {
+        "name": "Ventilateur de tirage"
+      },
+      "primary_air": {
+        "name": "Air primaire"
+      },
+      "primary_air_flap": {
+        "name": "Position volet d'air primaire"
+      },
+      "secondary_air": {
+        "name": "Air secondaire"
+      },
+      "secondary_air_flap": {
+        "name": "Position volet d'air secondaire"
+      },
+      "residual_oxygen": {
+        "name": "Oxygène résiduel"
+      },
+      "oxygen_controller": {
+        "name": "Régulateur d'oxygène"
+      },
+      "buffer_temperature_top": {
+        "name": "Température ballon haut"
+      },
+      "buffer_temperature_middle": {
+        "name": "Température ballon milieu"
+      },
+      "buffer_temperature_bottom": {
+        "name": "Température ballon bas"
+      },
+      "buffer_pump": {
+        "name": "Pompe ballon"
+      },
+      "hot_water_temperature": {
+        "name": "Température eau chaude sanitaire"
+      },
+      "outdoor_temperature": {
+        "name": "Température extérieure"
+      },
+      "combustion_chamber_temperature": {
+        "name": "Température chambre de combustion"
+      },
+      "feeder": {
+        "name": "Vis d'alimentation"
+      },
+      "fill_level": {
+        "name": "Niveau de pellets"
+      },
+      "operating_hours": {
+        "name": "Heures de fonctionnement"
+      },
+      "fire_hold_hours": {
+        "name": "Heures de maintien du feu"
+      },
+      "burner_starts": {
+        "name": "Démarrages du brûleur"
+      },
+      "board_temperature": {
+        "name": "Température carte électronique"
+      },
+      "flow_temperature": {
+        "name": "Température départ circuit {number}"
+      },
+      "flow_temperature_target": {
+        "name": "Consigne départ circuit {number}"
+      },
+      "room_temperature": {
+        "name": "Température pièce circuit {number}"
+      },
+      "party_switch": {
+        "name": "Mode fête circuit {number}"
+      },
+      "kty_sensor": {
+        "name": "Sonde KTY {number}"
+      },
+      "last_fault": {
+        "name": "Dernière erreur"
+      },
+      "last_fault_time": {
+        "name": "Heure de la dernière erreur"
+      },
+      "controller_time": {
+        "name": "Heure du régulateur"
+      },
+      "switch_off_above_target": {
+        "name": "Arrêt au-dessus de la consigne +"
+      },
+      "max_heat_up_time": {
+        "name": "Durée maximale de montée en température"
+      },
+      "min_flue_gas_temperature": {
+        "name": "Température fumées minimale"
+      },
+      "max_flue_gas_temperature": {
+        "name": "Température fumées maximale"
+      },
+      "fire_out_flue_gas_temperature": {
+        "name": "Température fumées d'extinction du feu"
+      },
+      "switch_off_above_max_target": {
+        "name": "Arrêt au-dessus de la consigne max. +"
+      },
+      "residual_oxygen_target": {
+        "name": "Consigne oxygène résiduel"
+      },
+      "fire_out_residual_oxygen": {
+        "name": "Oxygène résiduel d'extinction du feu"
+      },
+      "primary_air_flap_voltage_closed": {
+        "name": "Tension volet air primaire 0 %"
+      },
+      "primary_air_flap_voltage_open": {
+        "name": "Tension volet air primaire 100 %"
+      },
+      "secondary_air_flap_voltage_closed": {
+        "name": "Tension volet air secondaire 0 %"
+      },
+      "secondary_air_flap_voltage_open": {
+        "name": "Tension volet air secondaire 100 %"
+      },
+      "min_return_temperature": {
+        "name": "Température de retour minimale"
+      },
+      "pumps_start_temperature": {
+        "name": "Démarrage des pompes à"
+      },
+      "return_pump_min_speed": {
+        "name": "Vitesse minimale pompe de relance de retour"
+      },
+      "buffer_pump_min_speed": {
+        "name": "Vitesse minimale pompe ballon"
+      },
+      "hot_water_pump_min_speed": {
+        "name": "Vitesse minimale pompe eau chaude sanitaire"
+      },
+      "circuit_max_flow_temperature": {
+        "name": "Température départ maximale circuit {number}"
+      },
+      "circuit_mixer_runtime": {
+        "name": "Durée de course mélangeur circuit {number}"
+      },
+      "circuit_frost_protection": {
+        "name": "Température antigel circuit {number}"
+      }
+    }
+  },
+  "exceptions": {
+    "cannot_connect": {
+      "message": "Impossible de communiquer avec la S3100 : {error}"
+    },
+    "not_connected": {
+      "message": "La S3100 n'est actuellement pas connectée."
+    },
+    "writes_disabled": {
+      "message": "La modification des paramètres est désactivée dans les options de l'intégration."
+    },
+    "write_not_allowed": {
+      "message": "Cette valeur ne peut pas être écrite : {error}"
+    },
+    "write_failed": {
+      "message": "La S3100 n'a pas accepté la modification : {error}"
+    }
+  },
+  "issues": {
+    "writes_enabled": {
+      "title": "Fröling S3100 : modification des paramètres activée",
+      "description": "L'option expérimentale de modification des paramètres du régulateur est activée. Seuls les paramètres du menu client peuvent être modifiés, dans les limites annoncées par le régulateur. Contrôlez l'affichage de la chaudière après chaque modification. Désactivez l'option dans les paramètres de l'intégration si vous n'en avez pas besoin."
+    }
+  }
+}
