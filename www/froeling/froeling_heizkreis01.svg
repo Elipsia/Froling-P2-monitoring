@@ -66,7 +66,7 @@
    id="binary_sensor.froling_s3100_demande_circuit_de_chauffage_1"
    class="stPumpActive"
    inkscape:label="binary_sensor.froling_s3100_demande_circuit_de_chauffage_1"><title
-   id="title6">Heizkreispumpe</title>&#10;	<path
+   id="title6">Pompe circuit</title>&#10;	<path
    d="M71.1,212.4c0-1.9,1.5-3.4,3.4-3.4c1.9,0,3.4,1.5,3.4,3.4c0,1.9-1.5,3.4-3.4,3.4   C72.7,215.8,71.1,214.3,71.1,212.4z"
    id="path7" />&#10;	<path
    d="M90.2,218v-2.3h-5.3c0.3-1,0.5-2.1,0.5-3.2c0-1.1-0.2-2.1-0.4-3.1h5.3v-2.1c0-0.2,0.2-0.4,0.4-0.4h1.1   c0.2,0,0.4,0.2,0.4,0.4V218c0,0.2-0.2,0.4-0.4,0.4h-1.1C90.4,218.4,90.2,218.2,90.2,218z"
@@ -93,12 +93,12 @@
    id="path17" />&#10;</g>&#10;<g
    id="obj_room-sensor"
    class="stNotAvailable"><title
-   id="title17">Raumfühler || Raumbediengerät</title>&#10;	<path
+   id="title17">Sonde de pièce</title>&#10;	<path
    class="st1"
    d="M376.3,176.6v-30h-6c-1.1,0-2,0.9-2,2v26c0,1.1,0.9,2,2,2H376.3z M374.9,156.6h-5.2   v-2h5.2V156.6z M374.9,160.6h-5.2v-2h5.2V160.6z M374.9,164.6h-5.2v-2h5.2V164.6z M374.9,168.5h-5.2v-2h5.2V168.5z"
    id="path18" />&#10;</g>&#10;<g
    id="label_outside-temp"><title
-   id="title18">Außentemperatur</title>&#10;	<path
+   id="title18">Température extérieure</title>&#10;	<path
    id="frame_2_"
    class="st7"
    d="M200.3,71.9h-71c-1.7,0-3-1.4-3-3V45.4c0-1.6,1.3-3,3-3h71c1.6,0,3,1.4,3,3v23.5   C203.3,70.5,201.9,71.9,200.3,71.9z" />&#10;	<g
@@ -171,7 +171,7 @@
    transform="matrix(1 0 0 1 180 62.6916)"
    class="st1 st10 st11">0°C</text>&#10;<g
    id="label_flow-temp"><title
-   id="title26">Vorlauftemperatur</title>&#10;	<path
+   id="title26">Température départ</title>&#10;	<path
    id="frame"
    class="st7"
    d="M184.3,200.7h-53c-1.6,0-3-1.3-3-3v-23.5c0-1.6,1.4-3,3-3h53c1.6,0,3,1.4,3,3v23.5   C187.3,199.3,185.9,200.7,184.3,200.7z" />&#10;	<g
@@ -206,7 +206,7 @@
    class="st1 st10 st11">0°C</text>&#10;<g
    id="label_room-temp"
    class="stNotAvailable"><title
-   id="title29">Raumtemperatur</title>&#10;	<path
+   id="title29">Température pièce</title>&#10;	<path
    id="frame_1_"
    class="st7"
    d="M301.6,143.3h-71c-1.7,0-3-1.4-3-3v-23.5c0-1.7,1.3-3,3-3h71c1.6,0,3,1.3,3,3v23.5   C304.6,142,303.2,143.3,301.6,143.3z" />&#10;	<g
