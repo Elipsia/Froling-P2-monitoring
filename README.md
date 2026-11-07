@@ -40,7 +40,7 @@ Le port « Bedien-Erweiterung » de la Lambdatronic 3100 existe en **deux varian
 
 ### Variante B — connecteur 4 broches (+US / TXD / RXD / GND)
 
-Une prise plastique à 4 trous (pas 2,54 mm type Molex, étiquettes imprimées sur la carte). Le câblage se fait avec des fiches Dupont femelles et un connecteur DB9 mâle :
+Une prise plastique à 4 trous, femelle (pas 2,54 mm type Molex, étiquettes imprimées sur la carte). La prise étant à trous, il faut des **broches mâles** au bout des fils : le câblage se fait avec des câbles Dupont **mâle**-bout dénudé et un connecteur DB9 à bornier. Vérifiez au préalable l'écart entre deux trous adjacents : ~2,54 mm = standard Dupont ; ~3,96 mm = il faudra un connecteur Molex KK mâle 3,96 mm avec embases à souder.
 
 | Broche P3100 | → | Broche DB9 mâle | → | câble null modem → convertisseur |
 |---|---|---|---|---|
@@ -49,7 +49,7 @@ Une prise plastique à 4 trous (pas 2,54 mm type Molex, étiquettes imprimées s
 | GND | → | broche 5 | → | masse |
 | +US | → | **non branchée** — isolez la fiche (chatterton/gaine thermo) | |
 
-Matériel pour cette variante : connecteur DB9 mâle à souder ou à bornier (~5 €) + 4 câbles Dupont femelle-bout dénudé (~5 €).
+Matériel pour cette variante : connecteur DB9 à bornier à vis (~5 €) + câbles Dupont **mâle**-mâle (~5 €, on coupe une extrémité pour le dénuder côté DB9) + gaine thermo pour isoler la broche +US non branchée.
 
 **Diagnostic** : si l'intégration affiche « La S3100 ne répond pas » alors que le convertisseur est joignable, intervertissez les fils TXD et RXD — un câblage inversé ne casse rien, la chaudière reste simplement muette.
 
