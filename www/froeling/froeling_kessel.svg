@@ -2588,9 +2588,9 @@
    cy="160.9"
    r="0.8"
    id="circle508" />&#10;		</g>&#10;	</g>&#10;</g>&#10;<g
-   id="binary_sensor.froeling_puffer_1_pufferpumpen_ansteuerung_an_aus"
+   id="binary_sensor.froling_s3100_buffer_pump_running_an_aus"
    class="stPumpInActive"
-   inkscape:label="binary_sensor.froeling_puffer_1_pufferpumpen_ansteuerung_an_aus"><title
+   inkscape:label="binary_sensor.froling_s3100_buffer_pump_running_an_aus"><title
    id="title508">État de la pompe ballon</title>&#10;	<path
    d="M293.6,184.5c0-1.8-1.5-3.3-3.3-3.3c-1.8,0-3.3,1.5-3.3,3.3c0,1.8,1.5,3.3,3.3,3.3   C292.1,187.8,293.6,186.3,293.6,184.5z"
    id="path508" />&#10;	<path
@@ -2790,7 +2790,7 @@
    class="st2"
    d="M317.6,220.7c1.7,1.7,3,0.8,3,0.8l4.2-8l-8,4.2C316.8,217.7,315.9,219,317.6,220.7z"
    id="path536" />&#10;		</g>&#10;	</g>&#10;</g>&#10;<text
-   id="sensor.froeling_puffer_1_pufferpumpen_ansteuerung"
+   id="binary_sensor.froling_s3100_buffer_pump_running"
    transform="matrix(1 0 0 1 358 220.5806)"
    class="st9 st10 st11"
-   inkscape:label="sensor.froeling_puffer_1_pufferpumpen_ansteuerung">0%</text>&#10;</svg>
+   inkscape:label="binary_sensor.froling_s3100_buffer_pump_running">0%</text>&#10;</svg>

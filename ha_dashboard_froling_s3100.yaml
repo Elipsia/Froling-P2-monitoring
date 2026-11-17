@@ -59,6 +59,14 @@ views:
                           (entity.state == "Préchauffage") ? "fill-orange" :
                           "fill-grey"
                         }
+                - entities:
+                    - binary_sensor.froling_s3100_buffer_pump_running
+                  tap_action: false
+                  state_action:
+                    action: call-service
+                    service: floorplan.class_set
+                    service_data:
+                      class: '${(entity.state == "on") ? "fill-green" : "fill-grey"}'
       - type: entities
         title: État
         entities:
