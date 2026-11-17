@@ -1,0 +1,34 @@
+name: Publish release asset
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  asset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build froeling_s3100.zip
+        run: |
+          python3 - <<'PY'
+          import os
+          import zipfile
+
+          src = "custom_components/froeling_s3100"
+          with zipfile.ZipFile("froeling_s3100.zip", "w", zipfile.ZIP_DEFLATED) as archive:
+              for root, dirs, files in os.walk(src):
+                  dirs[:] = [d for d in dirs if d != "__pycache__"]
+                  for name in files:
+                      path = os.path.join(root, name)
+                      archive.write(path, os.path.relpath(path, src))
+          PY
+
+      - name: Attach the zip to the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${{ github.event.release.tag_name }}" froeling_s3100.zip --clobber
