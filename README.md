@@ -90,24 +90,29 @@ Créez une automatisation dans Home Assistant :
 alias: Erreur chaudière Fröling
 description: Notifie quand la chaudière Fröling signale un défaut
 triggers:
-  - trigger: event
-    event_type: fault
+  - trigger: event.received
+    target:
+      entity_id: event.froling_s3100_message_d_erreur
+    options:
+      event_type:
+        - fault
 actions:
   - action: persistent_notification.create
     data:
-      title: "⚠️ Défaut chaudière Fröling (erreur {{ trigger.event.data.error_id }})"
+      title: "⚠️ Défaut chaudière Fröling (erreur {{ trigger.to_state.attributes.error_id }})"
       message: >-
-        {{ trigger.event.data.text }}
-        (message d'origine : {{ trigger.event.data.text_origin }})
-        à {{ trigger.event.data.controller_time }}
-  # En production, ajoutez aussi une notification mobile : 
-  # - action: notify.mobile_app_mon_telephone
-  #   data:
-  #     title: "⚠️ Défaut chaudière Fröling"
-  #     message: "{{ trigger.event.data.text }}"
+        {{ trigger.to_state.attributes.text }}
+        (message d'origine : {{ trigger.to_state.attributes.text_origin }})
+        à {{ trigger.to_state.attributes.controller_time }}
+  - action: notify.mobile_app_mon_telephone
+    data:
+      title: "⚠️ Défaut chaudière Fröling"
+      message: "{{ trigger.to_state.attributes.text }}"
 ```
 
-L'entité événement `event.froling_s3100_message_d_erreur` émet un événement bus de type `fault` à chaque défaut (données : `text` traduit, `error_id`, `state`, `controller_time`...). Adaptez l'identifiant si votre entité a un autre identifiant
+Sur Home Assistant 2026.11, les entités `event.*` ne publient plus d'événement sur le bus : à chaque défaut, l'entité événement `event.froling_s3100_message_d_erreur` change simplement d'état (l'état = horodatage de l'événement, les attributs = `event_type: fault` + données `text` traduit, `error_id`, `state`, `controller_time`...). Il faut donc utiliser le déclencheur **`event.received`** (qui réagit au changement d'état de l'entité événement) et lire les données dans **`trigger.to_state.attributes.*`** — et non `trigger.event.data.*` (réservé à l'ancien déclencheur `event`, qui ne se déclenche plus pour les entités événement). Adaptez l'identifiant si votre entité a un autre identifiant.
+
+Pour tester sans attendre un vrai défaut : Outils de développement → États → définissez l'état de `event.froling_s3100_message_d_erreur` sur un horodatage (ex. `2026-11-18T21:00:00+00:00`) avec les attributs `event_type: fault`, `error_id: 15`, `text: Test`, `controller_time: 2026-11-18T21:00:00` → l'automatisation doit se déclencher (visible dans ses Traces et dans la cloche de notifications).
 
 Chaque message d'erreur envoyé par la chaudière (en allemand) est automatiquement traduit en français via la table `custom_components/froeling_s3100/fault_texts_fr.py`. Si un message n'est pas encore répertorié, il s'affiche sous la forme « Texte inconnu (... » : signalez-le dans les issues et complétez la table — toute contribution est bienvenue.
 
