@@ -58,8 +58,8 @@
     <path d="M 668 230 l 94 0 l -12 132 l -70 0 z" fill="#aed581"/>
     <!-- Vis d'alimentation vers la chaudière -->
     <path d="M 715 370 q -100 40 -430 -30" fill="none" stroke="#7cb342" stroke-width="4" stroke-dasharray="8 4"/>
-    <text x="715" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#334">Silo pellets</text>
-    <text x="715" y="215" text-anchor="middle" font-size="11" fill="#556">niveau</text>
+    <text x="715" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#334">Silo à granulés</text>
+    <text id="sensor.froling_s3100_niveau_de_pellets" x="715" y="215" text-anchor="middle" font-size="11" fill="#556">niveau</text>
   </g>
 
   <!-- ======================= LIAISONS HYDRAULIQUES ======================= -->
