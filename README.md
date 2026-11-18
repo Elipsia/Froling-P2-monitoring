@@ -90,12 +90,8 @@ Créez une automatisation dans Home Assistant :
 alias: Erreur chaudière Fröling
 description: Notifie quand la chaudière Fröling signale un défaut
 triggers:
-  - trigger: event.received
-    target:
-      entity_id: event.froling_s3100_message_d_erreur
-    options:
-      event_type:
-        - fault
+  - trigger: event
+    event_type: fault
 actions:
   - action: persistent_notification.create
     data:
@@ -111,7 +107,7 @@ actions:
   #     message: "{{ trigger.event.data.text }}"
 ```
 
-Le déclencheur `event.received` (dans l'éditeur visuel : « Événement reçu ») est le déclencheur officiel des entités d'événement : il se déclenche à chaque message d'erreur, même si l'entité ne change pas d'état. Adaptez l'identifiant `event.froling_s3100_message_d_erreur` si votre entité a un autre identifiant (Paramètres → Appareils et services → Fröling → « Message d'erreur »).
+L'entité événement `event.froling_s3100_message_d_erreur` émet un événement bus de type `fault` à chaque défaut (données : `text` traduit, `error_id`, `state`, `controller_time`...). Adaptez l'identifiant si votre entité a un autre identifiant
 
 Chaque message d'erreur envoyé par la chaudière (en allemand) est automatiquement traduit en français via la table `custom_components/froeling_s3100/fault_texts_fr.py`. Si un message n'est pas encore répertorié, il s'affiche sous la forme « Texte inconnu (... » : signalez-le dans les issues et complétez la table — toute contribution est bienvenue.
 
