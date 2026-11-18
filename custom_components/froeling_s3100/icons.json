@@ -36,6 +36,18 @@
         "state": {
           "on": "mdi:fan"
         }
+      },
+      "supply_air_fan_running": {
+        "default": "mdi:fan-off",
+        "state": {
+          "on": "mdi:fan"
+        }
+      },
+      "feeder_running": {
+        "default": "mdi:power-plug-off",
+        "state": {
+          "on": "mdi:power-plug"
+        }
       }
     },
     "event": {
@@ -127,6 +139,9 @@
       },
       "circuit_frost_protection": {
         "default": "mdi:snowflake-thermometer"
+      },
+      "supply_air_fan": {
+        "default": "mdi:fan"
       }
     }
   }

@@ -72,6 +72,12 @@
       },
       "induced_draft_fan_running": {
         "name": "Saugzug läuft"
+      },
+      "supply_air_fan_running": {
+        "name": "Zuluftgebläse läuft"
+      },
+      "feeder_running": {
+        "name": "Förderschnecke läuft"
       }
     },
     "event": {
@@ -254,6 +260,15 @@
       },
       "circuit_frost_protection": {
         "name": "Frostschutztemperatur Heizkreis {number}"
+      },
+      "supply_air_fan": {
+        "name": "Zuluftgebläse"
+      },
+      "boiler_return_temperature": {
+        "name": "Kessel-Rücklauftemperatur"
+      },
+      "burner_stage": {
+        "name": "Brennerstufe"
       }
     }
   },

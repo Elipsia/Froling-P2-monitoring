@@ -21,6 +21,28 @@ def test_known_measurement() -> None:
     assert placeholders == {}
 
 
+def test_supply_air_fan() -> None:
+    info, _ = lookup("Zuluftgebl")
+    assert info is not None
+    assert info.translation_key == "supply_air_fan"
+
+
+def test_names_seen_on_a_real_p2() -> None:
+    """Measurement names announced by a real P2 (from its diagnostics)."""
+    expected = {
+        "Kessel RL": "boiler_return_temperature",
+        "Brenn.ST": "burner_stage",
+        "Die Kesseltemp. soll sein": "boiler_temperature_target",
+        "Fuellst.:": "fill_level",
+        "Zuluftgebl": "supply_air_fan",
+        "Einschub": "feeder",
+        "Feuerraumt": "combustion_chamber_temperature",
+    }
+    for name, key in expected.items():
+        info, _ = lookup(name)
+        assert info is not None and info.translation_key == key, name
+
+
 def test_numbered_measurement() -> None:
     info, placeholders = lookup("Vorlauft.2")
     assert info is not None

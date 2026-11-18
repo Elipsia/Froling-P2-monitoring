@@ -102,7 +102,8 @@ class MeasurementSensor(FroelingEntity, SensorEntity):
         self._key = measurement.key
         info, placeholders = lookup(measurement.name)
         if measurement.kind is MeasurementKind.TEXT:
-            self._attr_translation_key = "status"
+            # reference 0 carries the operating mode, reference 1 the status line
+            self._attr_translation_key = "operating_mode" if measurement.reference == 0 else "status"
         elif info is not None:
             self._attr_translation_key = info.translation_key
             self._attr_translation_placeholders = placeholders

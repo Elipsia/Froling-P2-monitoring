@@ -73,6 +73,8 @@ STATUS_SENSORS = (
 RUNNING_SENSORS = {
     "buffer_pump": "buffer_pump_running",
     "induced_draft_fan": "induced_draft_fan_running",
+    "supply_air_fan": "supply_air_fan_running",
+    "feeder": "feeder_running",
 }
 
 
