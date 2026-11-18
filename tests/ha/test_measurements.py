@@ -21,6 +21,12 @@ def test_known_measurement() -> None:
     assert placeholders == {}
 
 
+def test_supply_air_fan() -> None:
+    info, _ = lookup("Zuluftgebl")
+    assert info is not None
+    assert info.translation_key == "supply_air_fan"
+
+
 def test_numbered_measurement() -> None:
     info, placeholders = lookup("Vorlauft.2")
     assert info is not None

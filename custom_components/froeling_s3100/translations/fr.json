@@ -72,6 +72,12 @@
       },
       "induced_draft_fan_running": {
         "name": "Ventilateur de tirage en marche"
+      },
+      "supply_air_fan_running": {
+        "name": "Ventilateur d'air en marche"
+      },
+      "feeder_running": {
+        "name": "Vis d'alimentation en marche"
       }
     },
     "event": {
@@ -254,6 +260,9 @@
       },
       "circuit_frost_protection": {
         "name": "Température antigel circuit {number}"
+      },
+      "supply_air_fan": {
+        "name": "Ventilateur d'air comburant"
       }
     }
   },

@@ -45,6 +45,7 @@ _KNOWN: dict[str, MeasurementInfo] = {
     "abgassw": MeasurementInfo("flue_gas_temperature_target", TEMP),
     "kessstellgr": MeasurementInfo("boiler_control_value"),
     "saugzug": MeasurementInfo("induced_draft_fan"),
+    "zuluftgebl": MeasurementInfo("supply_air_fan"),
     "primluft": MeasurementInfo("primary_air"),
     "primklpos": MeasurementInfo("primary_air_flap"),
     "sekluft": MeasurementInfo("secondary_air"),
