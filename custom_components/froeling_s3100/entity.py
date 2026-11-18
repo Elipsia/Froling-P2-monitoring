@@ -54,8 +54,12 @@ class FroelingParameterEntity(FroelingEntity):
 
 
 def parameter_name(parameter: Parameter) -> str:
-    """Readable name built from the controller menu."""
-    return " - ".join((*parameter.menu_path, parameter.display_name))
+    """Readable name built from the controller menu, translated to French."""
+    from .menu_texts_fr import translate_menu_text
+
+    return " - ".join(
+        translate_menu_text(part) for part in (*parameter.menu_path, parameter.display_name)
+    )
 
 
 def writable_platform(coordinator: FroelingCoordinator, parameter: Parameter) -> str:
