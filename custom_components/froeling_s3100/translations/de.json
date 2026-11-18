@@ -263,6 +263,12 @@
       },
       "supply_air_fan": {
         "name": "Zuluftgebläse"
+      },
+      "boiler_return_temperature": {
+        "name": "Kessel-Rücklauftemperatur"
+      },
+      "burner_stage": {
+        "name": "Brennerstufe"
       }
     }
   },

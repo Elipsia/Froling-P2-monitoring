@@ -263,6 +263,12 @@
       },
       "supply_air_fan": {
         "name": "Ventilateur d'air comburant"
+      },
+      "boiler_return_temperature": {
+        "name": "Température de retour chaudière"
+      },
+      "burner_stage": {
+        "name": "Étage du brûleur"
       }
     }
   },
