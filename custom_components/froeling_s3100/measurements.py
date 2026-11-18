@@ -65,6 +65,7 @@ _KNOWN: dict[str, MeasurementInfo] = {
     "boiler": MeasurementInfo("hot_water_temperature", TEMP),
     "außentemp": MeasurementInfo("outdoor_temperature", TEMP),
     "feuerraum": MeasurementInfo("combustion_chamber_temperature", TEMP),
+    "feuerraumt": MeasurementInfo("combustion_chamber_temperature", TEMP),
     "einschub": MeasurementInfo("feeder"),
     "füllstand": MeasurementInfo("fill_level"),
     "fuellstand": MeasurementInfo("fill_level"),
