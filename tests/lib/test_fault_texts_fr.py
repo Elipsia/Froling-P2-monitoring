@@ -57,3 +57,26 @@ def test_abbreviated_texts_from_real_captures() -> None:
         translate_fault_text("Sicherheitstemp.\n(STB) ausgelöst")
         == "Limiteur de température de sécurité déclenché (STB)"
     )
+
+
+def test_zu_lange_tief_hoch_alerts_are_translated() -> None:
+    assert (
+        translate_fault_text("Rücklauftemp. zu lange TIEF")
+        == "Température de retour trop basse depuis trop longtemps"
+    )
+    assert (
+        translate_fault_text("Rücklauftemp. zu lange HOCH")
+        == "Température de retour trop élevée depuis trop longtemps"
+    )
+    assert (
+        translate_fault_text("Kesseltemp. zu lange TIEF")
+        == "Température chaudière trop basse depuis trop longtemps"
+    )
+    assert (
+        translate_fault_text("Vorlauftemp. zu lange HOCH")
+        == "Température de départ trop élevée depuis trop longtemps"
+    )
+    assert (
+        translate_fault_text("Abgastemp. zu lange HOCH")
+        == "Température des fumées trop élevée depuis trop longtemps"
+    )
